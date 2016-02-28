@@ -22,7 +22,7 @@ client.on('stream', function(stream, meta){
 		}else{
 			drawEnemy(data);
 		}
-    });
+		});
 });
 
 var offsetLeft=150;
@@ -68,23 +68,23 @@ function setName(name){
 
 function drawing(answer){
 	$('#myCanvas').mousedown(function(e){
-	  var mouseX = e.pageX - canvasContainer.offsetLeft;
-	  var mouseY = e.pageY - canvasContainer.offsetTop;
-	  paint = true;
-	  addClick(e.pageX - canvasContainer.offsetLeft, e.pageY - canvasContainer.offsetTop);
-	  redraw();
+		var mouseX = e.pageX - canvasContainer.offsetLeft;
+		var mouseY = e.pageY - canvasContainer.offsetTop;
+		paint = true;
+		addClick(e.pageX - canvasContainer.offsetLeft, e.pageY - canvasContainer.offsetTop);
+		redraw();
 	});
 	$('#myCanvas').mousemove(function(e){
-	  if(paint){
-	    addClick(e.pageX - canvasContainer.offsetLeft, e.pageY - canvasContainer.offsetTop, true);
-	    redraw();
-	  }
+		if(paint){
+			addClick(e.pageX - canvasContainer.offsetLeft, e.pageY - canvasContainer.offsetTop, true);
+			redraw();
+		}
 	});
 	$(document).mouseup(function(e){
-	  paint = false;
+		paint = false;
 	});
 	$('#myCanvas').mouseleave(function(e){
-	  paint = false;
+		paint = false;
 	});
 	$('#answer').text(answer);
 }
@@ -112,36 +112,36 @@ function emptyCanvas(){
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 }
 function addClick(x, y, dragging){
-  clickX.push(x);
-  clickY.push(y);
-  clickDrag.push(dragging);
-  var arraya=new Array();;
-  arraya[0]=x;
-  arraya[1]=y;
-  arraya[2]=dragging;
-  client.send(arraya);
+	clickX.push(x);
+	clickY.push(y);
+	clickDrag.push(dragging);
+	var arraya=new Array();;
+	arraya[0]=x;
+	arraya[1]=y;
+	arraya[2]=dragging;
+	client.send(arraya);
 }
 function redraw(){
-  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-  context.strokeStyle = "#df4b26";
-  context.lineJoin = "round";
-  context.lineWidth = 5;
+	context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+	context.strokeStyle = "#df4b26";
+	context.lineJoin = "round";
+	context.lineWidth = 5;
 
-  for(var i=0; i < clickX.length; i++) {
-    context.beginPath();
-    if(clickDrag[i] && i){
-      context.moveTo(clickX[i-1], clickY[i-1]);
-     }else{
-       context.moveTo(clickX[i]-1, clickY[i]);
-     }
-     context.lineTo(clickX[i], clickY[i]);
-     context.closePath();
-     context.stroke();
-  }
+	for(var i=0; i < clickX.length; i++) {
+		context.beginPath();
+		if(clickDrag[i] && i){
+			context.moveTo(clickX[i-1], clickY[i-1]);
+		 }else{
+			 context.moveTo(clickX[i]-1, clickY[i]);
+		 }
+		 context.lineTo(clickX[i], clickY[i]);
+		 context.closePath();
+		 context.stroke();
+	}
 }
 function drawEnemy(data){
-  clickX.push(data[0]);
-  clickY.push(data[1]);
-  clickDrag.push(data[2]);
-  redraw();
+	clickX.push(data[0]);
+	clickY.push(data[1]);
+	clickDrag.push(data[2]);
+	redraw();
 }
