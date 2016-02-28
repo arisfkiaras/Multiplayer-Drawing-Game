@@ -3,7 +3,7 @@ var canvasContainer=document.getElementById("canvasContainer");
 var context=canvas.getContext("2d");
 var client;
 
-if(!window.location.href.indexOf("?local") < 0){
+if(window.location.href.indexOf("local") < 0){
 	client= new BinaryClient('ws://draws.frouk.me:9002');
 }else{
 	client= new BinaryClient('ws://localhost:9002');
