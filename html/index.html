@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Draw It Game</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+</head>
+
+<body>
+<script src="binary.js"></script>
+<style>
+body { font: 13px Helvetica, Arial;list-style-type: none; }
+#leftBox { position: fixed; width: 150px;height:650px; border:1px solid #d3d3d3;}
+#chatForm { position: absolute;bottom: 0; width: 146px;height:600px;}
+#chat { list-style-type: none; padding: 0 0 10px 0; position: absolute; bottom: 0; width: 146px;}
+#chat li {  word-wrap: break-word;}
+#chat li:nth-child(odd) {}
+#chatInput{position: absolute; bottom: 0;width: 148px;}
+#nameInput{position: absolute; bottom: 0;width: 148px;}
+#canvasContainer{position: fixed;width:650px;height:650px;margin-left: 150px;}
+#answer{position: absolute;border:2px solid #d3d3d3;width: 146px;}
+#rightBox { position: fixed; width: 150px;height:650px; margin-left: 800px;border:1px solid #d3d3d3;}
+li span.username {font-weight:normal;}
+</style>
+<script>
+$(function() {
+	$('#chatForm').submit(function(event) {
+    	event.preventDefault();
+		var msg=$('#chatInput').val();
+    	sendChat(msg);
+		$('#chat').append($('<li>').text(msg));
+		$('#chatInput').attr("value", "");
+
+    });
+});
+$(function() {
+	$('#setNameForm').submit(function(event) {
+    	event.preventDefault();
+      var name=$('#nameInput').val();
+    	setName(name);
+      $('#setNameForm').remove();
+  });
+});
+</script>
+
+<div id="leftBox">
+  <div id="currentUsers"></div>
+  <form id="setNameForm">
+		<input type="text" id="nameInput" tabindex="0" placeholder="Set your nickname..">
+	</form>
+</div>
+<div id="canvasContainer">
+	<canvas id="myCanvas" width="650" height="650" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
+</div>
+<div id="rightBox">
+	<div id="answer">_ H _ _</div>
+	<form id="chatForm">
+		<ul id="chat"></ul>
+		<input type="text" id="chatInput" tabindex="0" autofocus="" placeholder="Type...">
+	</form>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
