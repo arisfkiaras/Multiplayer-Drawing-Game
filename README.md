@@ -3,6 +3,7 @@
 
 Wanted to play around with Nodejs and made a simple multiplayer drawing game.<br>
 Might decide to turn it into a fully functioning fun game in the future.<br>
+Have not worked on GUI yet.<br>
 <br>
 Use however you like.<br>
 Use at your own risk.<br>
