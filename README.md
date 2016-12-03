@@ -8,11 +8,11 @@ Have not worked on GUI yet.<br>
 Use however you like.<br>
 Use at your own risk.<br>
 <br>
-####Live [Demo](http://draw.frouk.me/).
+####Live [Demo](http://drawit.xyz/).
 <br>
 #####How to Install:
 ```
-git clone https://github.com/Frouk/Multiplayer-Drawing-Game.git
+git clone https://github.com/arisfkiaras/Multiplayer-Drawing-Game.git
 cd Multiplayer-Drawing-Game
 npm install
 ```
