@@ -15,9 +15,9 @@ Use at your own risk.<br>
 git clone https://github.com/Frouk/Multiplayer-Drawing-Game.git
 cd Multiplayer-Drawing-Game
 npm install
-edit ./html/game.js and change "draws.frouk.me" to your ip
 ```
 #####How to Run:
 ```
 node main
+go to  http://localhost:9003
 ```
