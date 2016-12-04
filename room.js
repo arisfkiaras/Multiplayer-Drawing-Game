@@ -8,6 +8,7 @@ var Room = function(roomId, maxPlayers, sendData, getWord) {
     this.getWord = getWord;
     this.currentWord = "Waiting For Players";
     this.currentHelp = "Waiting For Players";
+    this.roundId = 0;
 };
 
 Room.prototype.addPlayer = function(id, name) {
@@ -30,6 +31,8 @@ Room.prototype.removePlayer = function(id) {
         this.state = 'EMPTY';
     } else if (this.getPlayers() === 1) {
         this.state = 'WAITING';
+        this.currentWord = "Waiting For Players";
+        this.currentHelp = "Waiting For Players";
     } else {
         if (id == this.drawId) {
             this.nextRound();
@@ -65,7 +68,7 @@ Room.prototype.onNewChat = function(senderId, message) {
     if (message.toUpperCase() != this.currentWord) {
         this.sendToAllOthers(senderId, ["chat", this.playerData[senderId][0], message]);
     } else {
-        if(senderId != this.drawId) {
+        if (senderId != this.drawId && this.state == 'PLAYING') {
             for (clientId in this.playerData) {
                 this.sendData(clientId, ["chat", "Server", this.playerData[senderId][0] + " Wins!"]);
             }
@@ -94,7 +97,7 @@ Room.prototype.sendGameData = function() {
     }
 	myArray[2] = this.currentHelp;
 	myArray[3] = false;
-	myArray[4] = 2;
+	myArray[4] = this.roundId;
 
     this.sendToAllOthers(this.drawId, myArray);
 
@@ -117,14 +120,16 @@ Room.prototype.sendToAllOthers = function(senderId, data) {
 
 Room.prototype.nextRound = function() {
 
+    this.roundId++;
+
     // Get next drawID
     this.drawId = Object.keys(this.playerData)[(Object.keys(this.playerData).indexOf(this.drawId) + 1 )% this.getPlayers()];
 
     // Get new word
     this.currentWord = this.getWord();
     this.currentHelp = "";
-    // Get help, should move it to wordManager
 
+    // Get help, should move it to wordManager
     for (var i = 0; i < this.currentWord.length - 1; i++) {
 		if (this.currentWord.charAt(i) != " ") {
 			this.currentHelp += "_ ";
